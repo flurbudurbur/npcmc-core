@@ -1,14 +1,9 @@
 package dev.flur.npcmccore;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,22 +35,6 @@ public final class npcmcCore extends JavaPlugin implements Listener {
                 }
             }
         }
-
-
-    }
-
-    // register a command
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-
-            if (label.equalsIgnoreCase("reload")) {
-                reloadConfig();
-                p.sendMessage(ChatColor.GREEN + "NPCMC reloaded!");
-                return true;
-            }
-        }
-        return false;
     }
 
     public Map<String, String> getPlaceholders() {

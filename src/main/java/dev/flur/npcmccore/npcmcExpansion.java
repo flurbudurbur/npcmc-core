@@ -1,9 +1,12 @@
 package dev.flur.npcmccore;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class npcmcExpansion extends PlaceholderExpansion {
     private final npcmcCore plugin;
@@ -39,9 +42,20 @@ public class npcmcExpansion extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, @NotNull String params) {
         String value = plugin.getPlaceholders().get(params);
         if (value != null) {
-            return ChatColor.translateAlternateColorCodes('&', value);
+            return applyHex(value);
         }
-
         return null;
+    }
+
+    private final Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]){6}");
+
+    private String applyHex(String msg) {
+        Matcher match = hexPattern.matcher(msg);
+        while (match.find()) {
+            String hex = msg.substring(match.start(), match.end());
+            msg = msg.replace(hex, ChatColor.of(hex.substring(1)) + "");
+            match = hexPattern.matcher(msg);
+        }
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }
