@@ -1,0 +1,22 @@
+name: ncpmc-core
+version: '${project.version}'
+main: dev.flur.npcmccore.npcmcCore
+api-version: '1.20'
+authors: ["flurbudurbur"]
+
+depend: [PlaceholderAPI]
+
+commands:
+  npcmc:
+    description: Main command for npcmc-core
+    usage: /<command>
+    permission: npcmc.admin
+    default: op
+    aliases: [npcmc]
+
+permissions:
+  npcmc.admin:
+    description: Permission to use npcmc-core commands
+    default: op
+    children:
+      npcmc.reload: true
